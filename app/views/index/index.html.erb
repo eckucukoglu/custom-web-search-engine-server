@@ -1,0 +1,71 @@
+<script type="text/javascript">
+	function myFunction() {
+		
+		var radio_buttons = document.getElementsByName('selected_collection[collection_id]')
+		for (var i = 0; i < radio_buttons.length; i++) {
+			if (radio_buttons[i].checked) {
+				document.getElementById('collection_id_field').value = radio_buttons[i].value;
+				return true;
+			}
+		}
+		alert("You need to select a collection to search");
+    	return false;
+	}
+</script>
+
+
+<h2> Available Collections </h2>
+<br>
+
+<%= form_tag search_query_path do %>
+
+	<%= text_field_tag :query %>
+	<%= hidden_field_tag :collection_id_field %>
+	<%= submit_tag "Search", :onclick => "return myFunction()" %>
+	<%= check_box_tag :mmr %>MMR?
+	<%= check_box_tag :wand %>WAND?
+<% end %>
+<br>
+<br>
+
+<table style="float:left" border="1" width="60%">
+	<thead>
+		<tr>
+			<th>Created At</th>
+			<th>Seed-Url</th>
+			<th>Max-Depth</th>
+			<th>Max-Pages</th>
+			<th># of Retrieved</th>
+			<th>Collection Id</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @collections.each do |collection| %>
+			<tr>
+				<td>
+					<%= collection.created_at %>
+				</td>
+				<td>
+					<%=  collection.seed_url %>
+				</td>
+				<td style="text-align: center;">
+					<%=  collection.max_depth %>
+				</td>
+				<td style="text-align: center;">
+					<%= collection.max_pages %>
+				</td>
+				<td style="text-align: center;">
+					<%= collection.no_of_pages_retrieved %>
+				</td>
+				<td style="text-align: center;">
+				<%= collection.collection_id %>
+				</td>
+				<td>
+					<%= radio_button("selected_collection","collection_id",collection.id) %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+	<%= button_to 'New Collection', new_collection_path(), :method => :get %>
+</table>

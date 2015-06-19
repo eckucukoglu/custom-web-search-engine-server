@@ -1,0 +1,31 @@
+<h2> New Collection </h2>
+
+<%= form_for @collection, :url => save_collection_path(@collection) do |c| %>
+	<table border="0" width="50%">
+		<tr>
+			<td>
+				<%= c.label :seed_url %>:
+			</td>
+			<td>
+				<%= c.text_field :seed_url %><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= c.label :max_depth %>
+			</td>
+			<td>
+				<%= c.number_field :max_depth %><br />	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<%= c.label :max_pages %>
+			</td>
+			<td>
+				<%= c.number_field :max_pages %><br />	
+			</td>
+		</tr>
+	</table>
+	<%= c.submit %>
+<% end %>

@@ -1,0 +1,8 @@
+<h2> Results for '<%= @query %>'</h2>
+<table style="float:left" border="0" width="60%">
+	<% @results.each do |result| %>
+		<tr><td>
+		<%= link_to result, result, :target => "_blank" %>
+		</td></tr>
+	<% end %>
+</table>
